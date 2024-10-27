@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1bwlcbe805qe"]
+
+[ext_resource type="Texture2D" uid="uid://coinqw4nsde8v" path="res://kenney_tiny-dungeon/Tiles/tile_0067.png" id="1_oxu1b"]
+[ext_resource type="Texture2D" uid="uid://bs7a4v4xvb2uq" path="res://kenney_tiny-dungeon/Tiles/tile_0068.png" id="2_vws3d"]
+[ext_resource type="Texture2D" uid="uid://do88r673h2qai" path="res://kenney_tiny-dungeon/Tiles/tile_0081.png" id="3_eomxh"]
+[ext_resource type="Texture2D" uid="uid://c6mc7fkgljp7j" path="res://kenney_tiny-dungeon/Tiles/tile_0083.png" id="4_qjooh"]
+[ext_resource type="Texture2D" uid="uid://dtr2qeau0x6he" path="res://kenney_tiny-dungeon/Tiles/tile_0055.png" id="5_sxba1"]
+
+[sub_resource type="Animation" id="Animation_3m6bn"]
+resource_name = "new_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vagoneta:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1055, 59), Vector2(1055, 313)]
+}
+
+[sub_resource type="Animation" id="Animation_xamfc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Vagoneta:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1055, 59)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jyopf"]
+_data = {
+"RESET": SubResource("Animation_xamfc"),
+"new_animation": SubResource("Animation_3m6bn")
+}
+
+[node name="Rieles" type="Node2D"]
+
+[node name="Rieles" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(-833, 5)
+
+[node name="Tile0067" type="Sprite2D" parent="Rieles"]
+position = Vector2(1054.76, 48.944)
+scale = Vector2(3.492, 3.421)
+texture = ExtResource("1_oxu1b")
+
+[node name="Tile0068" type="Sprite2D" parent="Rieles"]
+position = Vector2(1053.76, 326.653)
+scale = Vector2(3.492, 3.492)
+texture = ExtResource("2_vws3d")
+
+[node name="Tile0081" type="Sprite2D" parent="Rieles"]
+position = Vector2(1055.22, 104.211)
+scale = Vector2(3.4922, 3.4922)
+texture = ExtResource("3_eomxh")
+
+[node name="Tile0083" type="Sprite2D" parent="Rieles"]
+position = Vector2(1054.76, 160.427)
+scale = Vector2(3.492, 3.492)
+texture = ExtResource("4_qjooh")
+
+[node name="Tile0082" type="Sprite2D" parent="Rieles"]
+position = Vector2(1054.76, 212.837)
+scale = Vector2(3.4922, 3.4922)
+texture = ExtResource("3_eomxh")
+
+[node name="Tile0084" type="Sprite2D" parent="Rieles"]
+position = Vector2(1054.3, 269.053)
+scale = Vector2(3.492, 3.492)
+texture = ExtResource("4_qjooh")
+
+[node name="Vagoneta" type="Sprite2D" parent="Rieles"]
+z_index = 2
+position = Vector2(1055, 59)
+scale = Vector2(3.492, 3.492)
+texture = ExtResource("5_sxba1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rieles"]
+libraries = {
+"": SubResource("AnimationLibrary_jyopf")
+}
+autoplay = "new_animation"

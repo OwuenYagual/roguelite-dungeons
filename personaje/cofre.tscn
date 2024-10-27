@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://1dp570i84npv"]
+
+[ext_resource type="Texture2D" uid="uid://dm7bbdbtpbsbo" path="res://kenney_tiny-dungeon/Tiles/tile_0089.png" id="1_gsnar"]
+[ext_resource type="Script" path="res://personaje/cofre.gd" id="1_vfjvk"]
+[ext_resource type="Texture2D" uid="uid://dg2138os06r0c" path="res://kenney_tiny-dungeon/Tiles/tile_0090.png" id="2_qun4n"]
+[ext_resource type="Texture2D" uid="uid://cr13n6awlkb1v" path="res://kenney_tiny-dungeon/Tiles/tile_0091.png" id="3_twcl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mi3kx"]
+size = Vector2(16, 14.5)
+
+[sub_resource type="Animation" id="Animation_g5pa6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CofreSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_gsnar")]
+}
+
+[sub_resource type="Animation" id="Animation_im81a"]
+resource_name = "abrir"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CofreSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [ExtResource("1_gsnar"), ExtResource("2_qun4n"), ExtResource("3_twcl1")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3yw1a"]
+_data = {
+"RESET": SubResource("Animation_g5pa6"),
+"abrir": SubResource("Animation_im81a")
+}
+
+[node name="Cofre" type="StaticBody2D" groups=["recompensa"]]
+script = ExtResource("1_vfjvk")
+
+[node name="CofreSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_gsnar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.25)
+shape = SubResource("RectangleShape2D_mi3kx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3yw1a")
+}

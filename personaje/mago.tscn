@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvjcyxx68nlax"]
+
+[ext_resource type="Script" path="res://personaje/mago.gd" id="1_fak1x"]
+[ext_resource type="Texture2D" uid="uid://clwb213elgjqa" path="res://kenney_tiny-dungeon/Tiles/tile_0084.png" id="1_xmhyx"]
+[ext_resource type="Texture2D" uid="uid://d0n3uifvh2b31" path="res://kenney_tiny-dungeon/Tiles/tile_0130.png" id="2_okc5l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v2ur0"]
+radius = 3.0
+height = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ljlu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iiayg"]
+
+[sub_resource type="GDScript" id="GDScript_0d5un"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Mago" type="StaticBody2D"]
+script = ExtResource("1_fak1x")
+
+[node name="magobody" type="Sprite2D" parent="."]
+texture = ExtResource("1_xmhyx")
+
+[node name="varita" type="Sprite2D" parent="magobody"]
+
+[node name="Tile0130" type="Sprite2D" parent="magobody"]
+position = Vector2(7, 2)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_okc5l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_v2ur0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1.42109e-14)
+scale = Vector2(1.46169, 1.44061)
+shape = SubResource("CircleShape2D_2ljlu")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -18.0
+offset_right = 16.0
+offset_bottom = 5.0
+scale = Vector2(1.29168, 0.313196)
+label_settings = SubResource("LabelSettings_iiayg")
+script = SubResource("GDScript_0d5un")

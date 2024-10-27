@@ -1,0 +1,122 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7o2shrs3dkk4"]
+
+[ext_resource type="Script" path="res://personaje/pj.gd" id="1_oy7ut"]
+[ext_resource type="Texture2D" uid="uid://gnut4in0k7cr" path="res://kenney_tiny-dungeon/Tiles/tile_0097.png" id="2_n7meh"]
+[ext_resource type="Texture2D" uid="uid://bdv33mlk675lm" path="res://kenney_tiny-dungeon/Tiles/tile_0104.png" id="3_xdsiq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nl2t2"]
+radius = 0.176191
+height = 0.58073
+
+[sub_resource type="Animation" id="Animation_mvon8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0872665]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/espada:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0872665]
+}
+
+[sub_resource type="Animation" id="Animation_5e4on"]
+resource_name = "ataque"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/espada:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0872665, 1.03739, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_62gg2"]
+resource_name = "movimiento"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [-0.0872665, 0.0872665]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qr11e"]
+_data = {
+"RESET": SubResource("Animation_mvon8"),
+"ataque": SubResource("Animation_5e4on"),
+"movimiento": SubResource("Animation_62gg2")
+}
+
+[sub_resource type="GDScript" id="GDScript_v8fvr"]
+script/source = "extends Area2D
+
+@export var damage: int
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2o0n5"]
+
+[node name="PJ" type="CharacterBody2D" groups=["jugador"]]
+script = ExtResource("1_oy7ut")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.0872665
+texture = ExtResource("2_n7meh")
+
+[node name="espada" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(8.5282, 4.14521)
+rotation = 0.0872665
+texture = ExtResource("3_xdsiq")
+offset = Vector2(0.142974, -5.38615)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+scale = Vector2(17.027, 17.2197)
+shape = SubResource("CapsuleShape2D_nl2t2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qr11e")
+}
+
+[node name="AttackArea" type="Area2D" parent="."]
+script = SubResource("GDScript_v8fvr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(13, -2)
+scale = Vector2(0.905748, 0.905748)
+shape = SubResource("CircleShape2D_2o0n5")
